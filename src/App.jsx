@@ -10,7 +10,7 @@ import Snowfall from "react-snowfall";
 
 const options = {
   method: "GET",
-  url: "http://api.weatherapi.com/v1/forecast.json?key=501f9544ad594420ae4160734231607&q=Námestovo&days=5&aqi=no&alerts=yes",
+  url: "https://api.weatherapi.com/v1/forecast.json?key=501f9544ad594420ae4160734231607&q=Námestovo&days=5&aqi=no&alerts=yes",
 };
 
 function App() {
