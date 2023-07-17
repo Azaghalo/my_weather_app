@@ -5,7 +5,7 @@ export default function TempStat({ data, units }) {
         <h3 className="text-left text-2xl font-bold text-white drop-shadow-textOutline">{data.location.name}</h3>
         <div className="flex pl-2">
           <p className="text-10xl text-white font-semibold text-left drop-shadow-textOutline">{units ? data.current.temp_f : data.current.temp_c}°</p>
-          <img className="h-1/2 self-end -ml-12" src={data.current.condition.icon} alt="" />
+          <img className="h-1/2 self-end -ml-12 translate-y-4" src={data.current.condition.icon} alt="" />
         </div>
       </div>
       <div className="font-bold text-white text-xl relative w-1/6 md:m-2 md:w-full">
