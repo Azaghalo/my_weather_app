@@ -6,15 +6,18 @@ import LoadingSpinner from "./LoadingSpinner";
 import TempStat from "./TempStat";
 import ConditionsElmt from "./ConditionsElmt";
 import ForecastElemt from "./ForecastElemt";
+import Snowfall from "react-snowfall";
 
 const options = {
   method: "GET",
-  url: "http://api.weatherapi.com/v1/forecast.json?key=501f9544ad594420ae4160734231607&q=Sao-Paulo&days=5&aqi=no&alerts=yes",
+  url: "http://api.weatherapi.com/v1/forecast.json?key=501f9544ad594420ae4160734231607&q=Námestovo&days=5&aqi=no&alerts=yes",
 };
 
 function App() {
   const [weatherData, setWeatherData] = useState({ loading: true });
-  const [location, setLocation] = useState("london");
+  const [location, setLocation] = useState("Námestovo");
+  const [rain, setRain] = useState(false);
+  const [snow, setSnow] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -28,6 +31,8 @@ function App() {
 
       await axios.request(options).then((response) => {
         setWeatherData({ ...response.data, loading: false });
+        setRain(!!response.data.forecast.forecastday[0].day.daily_will_it_rain);
+        setSnow(!!response.data.forecast.forecastday[0].day.daily_will_it_snow);
       });
     }
 
@@ -36,9 +41,21 @@ function App() {
 
   return (
     <main className="overflow-hidden max-w-full">
+      {rain || snow ? (
+        <Snowfall
+          color={snow ? "#dee4fd" : "#58bbf4"}
+          wind={snow ? [-0.5, 2.0] : [0, 0]}
+          radius={snow ? [0.8, 3.0] : [3, 2]}
+          speed={snow ? [1.0, 3.0] : [10, 12]}
+          snowflakeCount={snow ? 170 : 300}
+        />
+      ) : (
+        <></>
+      )}
+
       <div
         style={{ backgroundImage: `url(${bgImage})` }}
-        className="flex justify-between flex-col md:flex-row w-full h-screen bg-no-repeat bg-cover py-16 px-3"
+        className="flex justify-between md:items-center flex-col md:flex-row w-full h-screen bg-no-repeat bg-cover py-16 px-2 md:px-14 md:pt-0"
       >
         <div id="tempLocationContainer" className="flex md:flex-col justify-between h-52">
           {weatherData.loading ? <LoadingSpinner size={120} /> : <TempStat data={weatherData} />}

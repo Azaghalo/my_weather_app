@@ -4,7 +4,9 @@ export default function TempStat({ data, units }) {
       <div className="w-5/6">
         <h3 className="text-left text-2xl font-bold text-white drop-shadow-textOutline">{data.location.name}</h3>
         <div className="flex pl-2">
-          <p className="text-10xl text-white font-semibold text-left drop-shadow-textOutline">{units ? data.current.temp_f : data.current.temp_c}°</p>
+          <p className="text-10xl text-white font-semibold text-left drop-shadow-textOutline">
+            {units ? Math.round(data.current.temp_f) : Math.round(data.current.temp_c)}°
+          </p>
           <img className="h-1/2 self-end -ml-12 translate-y-4" src={data.current.condition.icon} alt="" />
         </div>
       </div>
